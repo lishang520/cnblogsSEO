@@ -1,19 +1,11 @@
 '''
 功能：博客园seo，博客园自己的博客文章，不容易被百度收录，通过该脚本，将我们的博客园文章提取出来，然后以特定格式发表到CSDN上，使其能够收录
 查看收录的文章：site:www.cnblogs.com inurl:painter-sec
-实现步骤：
-    1、获取博客园的所有文章链接
-    2、将博客园的链接转换为超链接的格式，存储到:cnblogs_urls 中
-    3、获取CSDN已经发表的文章(该文章是转门用来存储cnblogs的url的)，获取文章里的url链接，存储到CSDN_list中
-    4、对cnblogs_url和CSDN_list的内容进行比对，对于cnblogs_url中有，但是CSDN_list中没有的内容，存储到 add_url  中
-    3、修改CSDN的文章，将add_url发表到CSDN上
-        CSDN自动发表的实现思路：
-            1、自动获取CSDN的cookie，存储cookie到本地的cookie.txt中
-            2、以后登录就是用cookie登录，如果cookie失效，则重新获取cookie，将本地的cookie文件进行覆盖
 用法：
-    前提：需要修改本地的配置文件: config.txt  ,将里面的cnblogs_url 替换成你们自己的博客园博客主页，
-        将article_CSDN 的内容替换为你们用来专门seo的文章地址
-            注意：csdn的文章一定要是用  MD编辑器编辑的文章，我们只需要使用MD编辑器创建一个文章，然后获取该文章的编辑地址即可
+    前提：
+        需要修改本地的配置文件: config.py  ,将里面的url替换成你们自己的，
+        需要自己下载chrome的驱动
+    python3 博客园文章收录.py
 '''
 import time,datetime
 
@@ -24,7 +16,28 @@ from selenium.webdriver.common.keys import Keys
 import config   #导入配置文件
 from selenium.webdriver.chrome.options import Options
 
-
+def title():
+    print('''                                                                                                                                                                                                                                                   
+                                            iiii                             tttt                                                  
+                                           i::::i                         ttt:::t                                                  
+                                            iiii                          t:::::t                                                  
+                                                                          t:::::t                                                  
+    ppppp   ppppppppp     aaaaaaaaaaaaa   iiiiiii nnnn  nnnnnnnn    ttttttt:::::ttttttt        eeeeeeeeeeee    rrrrr   rrrrrrrrr   
+    p:::::::::::::::::p   aaaaaaaaa:::::a  i::::i n::::::::::::::nn t:::::::::::::::::t     e::::::eeeee:::::eer:::::::::::::::::r 
+    pp::::::ppppp::::::p           a::::a  i::::i nn:::::::::::::::ntttttt:::::::tttttt    e::::::e     e:::::err::::::rrrrr::::::r
+     p:::::p     p:::::p    aaaaaaa:::::a  i::::i   n:::::nnnn:::::n      t:::::t          e:::::::eeeee::::::e r:::::r     r:::::r
+     p:::::p     p:::::p  aa::::::::::::a  i::::i   n::::n    n::::n      t:::::t          e:::::::::::::::::e  r:::::r     rrrrrrr
+     p:::::p     p:::::p a::::aaaa::::::a  i::::i   n::::n    n::::n      t:::::t          e::::::eeeeeeeeeee   r:::::r            
+     p:::::p    p::::::pa::::a    a:::::a  i::::i   n::::n    n::::n      t:::::t    tttttte:::::::e            r:::::r            
+     p:::::ppppp:::::::pa::::a    a:::::a i::::::i  n::::n    n::::n      t::::::tttt:::::te::::::::e           r:::::r            
+     p::::::::::::::::p a:::::aaaa::::::a i::::::i  n::::n    n::::n      tt::::::::::::::t e::::::::eeeeeeee   r:::::r                  
+     p::::::pppppppp      aaaaaaaaaa  aaaaiiiiiiii  nnnnnn    nnnnnn          ttttttttttt      eeeeeeeeeeeeee   rrrrrrr            
+     p:::::p                                                                                                                                                                                                                                            
+    p:::::::p                                                                                                                      
+    p:::::::p                                                                                                                
+    p:::::::p                                    What is black and what is white                                                                              
+    ppppppppp                                    blog： https://www.cnblogs.com/painter-sec                                                                                                                                                                                                                                                    
+    ''')
 def get_cnbologs_articles():
     blog_url =  config.Config.cnblogs_url   #博客园文章地址
     page = 1
@@ -155,6 +168,7 @@ def update_article():
 
 
 if __name__ == '__main__':
+    title()
     chrome_options = Options()
     # chrome_options.add_argument('--window-size=1920,1080')  # 设置窗口界面大小
     chrome_options.add_argument('--headless')
